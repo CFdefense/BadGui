@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'MyFont';
+  src: url(./fonts/Fontspring-DEMO-vanguardcf-extrabold.otf) format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh; /* Ensure the body covers the viewport height */
+  background-color: #000; /* Solid background to avoid flash of white */
+  overflow-y: scroll;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: var(--background-image); /* To be set by Background.jsx */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: -1; /* Ensure it is behind other content */
+  filter: brightness(.5);
+}
+
+div {
+  position: relative; /* Ensure that the content has a positioning context */
+  z-index: 1; /* Ensure content is above the background */
+}
+
+:root {
+  --brand: #ADD8E6; /* Light blue color */
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
