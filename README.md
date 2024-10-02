@@ -1,1 +1,1 @@
-# LIVE @ https://Cfdefense.github.io/BadGui
+# LIVE @ https://CFdefense.github.io/BadGui
