@@ -1,46 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import logo from '/sign.png';
-import AnimateLogo from '../animations/AnimateLogo';
+import sign from '/sign.png';
+import logo from '/logo.png';
+import AnimateSign from '../animations/AnimateSign';
 
 const HomePage = () => {
   const [startAnimation, setStartAnimation] = useState(false);
-  const [runawayEnabled, setRunawayEnabled] = useState(true); // Add a state to toggle hover effect
+  const [runawayEnabled, setRunawayEnabled] = useState(true);
+  const [animationTriggered, setAnimationTriggered] = useState(false); // State to track if hover has happened
 
-  // States to store the positions of the header and menu items
   const [headerPosition, setHeaderPosition] = useState({ x: 0, y: 0 });
   const [explorePosition, setExplorePosition] = useState({ x: 0, y: 0 });
   const [topPicksPosition, setTopPicksPosition] = useState({ x: 0, y: 0 });
   const [aboutPosition, setAboutPosition] = useState({ x: 0, y: 0 });
   const [profilePosition, setProfilePosition] = useState({ x: 0, y: 0 });
 
-  // Start the animation for the logo after a delay
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setStartAnimation(true);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   // Function to generate random positions 
   const getRandomPosition = (elementWidth, elementHeight) => {
-    // restricting to ensure they dont fly away
     const viewportWidth = 500, viewportHeight = 500;
-
-    // Calculate the Max x and y to use for rand
     const maxX = viewportWidth - elementWidth, maxY = viewportHeight - elementHeight;
-
-    // Calc new random x and y
     const randomX = Math.random() * maxX, randomY = Math.random() * maxY;
-
     return { x: randomX, y: randomY };
   };
 
-  // Handlers to update the positions when hovering
+  const handleHover = (hoverHandler) => (e) => {
+    if (!animationTriggered) {
+      setAnimationTriggered(true);
+      setStartAnimation(true);  // Start animation after first hover
+    }
+    hoverHandler(e);
+  };
+
   const handleHeaderHover = (e) => {
     if (runawayEnabled) {
       const { width, height } = e.target.getBoundingClientRect();
-      setHeaderPosition(getRandomPosition(width, height));
+      setHeaderPosition(getRandomPosition(width - 250, height - 250));
     }
   };
 
@@ -72,27 +65,20 @@ const HomePage = () => {
     }
   };
 
-  // Function to reset positions -> when sign is clicked
-  const handleLogoClick = () => {
-    setRunawayEnabled(false); // Disable the hover effect
-
-    // reset positions
+  const handleSignClick = () => {
+    setRunawayEnabled(false);
     setHeaderPosition({ x: 0, y: 0 });
     setExplorePosition({ x: 0, y: 0 });
     setTopPicksPosition({ x: 0, y: 0 });
     setAboutPosition({ x: 0, y: 0 });
     setProfilePosition({ x: 0, y: 0 });
-
-    // summon mascot
-    
   };
 
   return (
     <div className="text-white font-myFont w-full h-screen text-center relative overflow-x-hidden">
-      {/* Header with hover movement */}
       <h1
         className="flex justify-center text-9xl mt-12"
-        onMouseEnter={handleHeaderHover}
+        onMouseEnter={handleHover(handleHeaderHover)}
         style={{
           transform: `translate(${headerPosition.x}px, ${headerPosition.y}px)`,
           transition: 'transform 0.2s ease-in-out',
@@ -101,10 +87,9 @@ const HomePage = () => {
         Freaky Food
       </h1>
 
-      {/* Navbar with hover movement */}
       <ul className="flex justify-center mt-6 space-x-10 text-4xl cursor-pointer">
         <li
-          onMouseEnter={handleExploreHover}
+          onMouseEnter={handleHover(handleExploreHover)}
           style={{
             transform: `translate(${explorePosition.x}px, ${explorePosition.y}px)`,
             transition: 'transform 0.2s ease-in-out',
@@ -113,7 +98,7 @@ const HomePage = () => {
           Explore
         </li>
         <li
-          onMouseEnter={handleTopPicksHover}
+          onMouseEnter={handleHover(handleTopPicksHover)}
           style={{
             transform: `translate(${topPicksPosition.x}px, ${topPicksPosition.y}px)`,
             transition: 'transform 0.2s ease-in-out',
@@ -122,7 +107,7 @@ const HomePage = () => {
           Top Picks
         </li>
         <li
-          onMouseEnter={handleAboutHover}
+          onMouseEnter={handleHover(handleAboutHover)}
           style={{
             transform: `translate(${aboutPosition.x}px, ${aboutPosition.y}px)`,
             transition: 'transform 0.2s ease-in-out',
@@ -131,7 +116,7 @@ const HomePage = () => {
           About
         </li>
         <li
-          onMouseEnter={handleProfileHover}
+          onMouseEnter={handleHover(handleProfileHover)}
           style={{
             transform: `translate(${profilePosition.x}px, ${profilePosition.y}px)`,
             transition: 'transform 0.2s ease-in-out',
@@ -141,17 +126,24 @@ const HomePage = () => {
         </li>
       </ul>
 
-      {/* Circle Logo with animation */}
-      <div className="absolute bottom-1 right-8 w-64 h-64 opacity-85">
-        <AnimateLogo start={startAnimation} delay={0.25}>
+      <div className="absolute -bottom-2 right-8 w-64 -mb-7 opacity-85">
+        <AnimateSign start={startAnimation} delay={3}>
+          <img
+            src={sign}
+            alt="Sign"
+            className="w-full h-full object-cover cursor-pointer"
+            onClick={handleSignClick}
+          />
+        </AnimateSign>
+      </div>
+        <div className="absolute top-0 -right-12 space-y-20">
           <img
             src={logo}
             alt="Logo"
-            className="w-full h-full object-cover cursor-pointer"
-            onClick={handleLogoClick} // Add click handler
+            className=''
           />
-        </AnimateLogo>
-      </div>
+        </div>
+      
     </div>
   );
 };

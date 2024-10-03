@@ -1,7 +1,6 @@
 -- TODO --
 1. Implement Character -> Use State
 2. Implement Character Fall Animation -> Use State
-3. Implement Word Running -> Use State
-4. Implement Sign UseState -> Word Reset + Character Falling
-5. Dialogue Pool, Maybe Array so we can order it
-6. Maybe Routing Maybe Not
+3. Implement Sign UseState -> Character Falling
+4. Dialogue Pool, Maybe Array so we can order it
+5. Maybe Routing Maybe Not

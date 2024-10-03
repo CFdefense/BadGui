@@ -1,8 +1,7 @@
-// src/animations/AnimateLogo.jsx
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const AnimateLogo = ({ start, delay, children }) => {
+const AnimateSign = ({ start, delay, children }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 75 }} // Default Setting
@@ -15,4 +14,4 @@ const AnimateLogo = ({ start, delay, children }) => {
   );
 };
 
-export default AnimateLogo;
+export default AnimateSign;
