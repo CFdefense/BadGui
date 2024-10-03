@@ -136,7 +136,7 @@ const HomePage = () => {
           />
         </AnimateSign>
       </div>
-        <div className="absolute top-0 -right-12 space-y-20">
+        <div className="absolute top-[-500px] -right-12 space-y-20">
           <img
             src={logo}
             alt="Logo"
