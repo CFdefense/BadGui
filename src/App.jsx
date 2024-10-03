@@ -1,9 +1,8 @@
+import HomePage from "./components/HomePage"
 
 function App() {
   return (
-    <div className="text-white">
-      <h1>badGUI</h1>
-    </div>
+    <HomePage />
   )
 }
 
