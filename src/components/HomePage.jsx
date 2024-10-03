@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import sign from '/sign.png';
 import logo from '/logo.png';
+import speak from '/speak.png';
 import AnimateSign from '../animations/AnimateSign';
 import AnimateFall from '../animations/AnimateFall';
 import HideSign from '../animations/HideSign';
@@ -211,6 +212,22 @@ const HomePage = () => {
             alt="Logo"
           />
         </AnimateFall>
+      </div>
+
+      {/* Text Box */}
+      <div className='flex absolute -rotate-12' style={{ right: '320px', bottom: '150px'}}>
+        <AnimateSign start={startFallAnimation} delay={5}>
+        <img
+          src={speak}
+          alt="speak"
+          className='z-40'
+          />
+        </AnimateSign>
+        <AnimateSign start={startFallAnimation} delay={6.5}>
+        <div className="absolute z-50 text-2xl text-red-700" style={{left: '30px', top: '10px', width: '300px', overflowWrap: 'break-word'}}>
+          {/*DialogueVariable Determined By Options -> Typed and have welcome default*/}
+        </div>
+        </AnimateSign>
       </div>
     </div>
   );
