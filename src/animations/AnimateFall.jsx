@@ -5,7 +5,7 @@ const AnimateFall = ({ start, delay, children }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 0, filter: 'blur(10px)' }} // Start above the view with blur
-      animate={start ? { opacity: 1, y: 1050, filter: 'blur(0px)' } : { opacity: 0, y: 0, filter: 'blur(10px)' }} // Control visibility and blur based on start
+      animate={start ? { opacity: 1, y: 1120, filter: 'blur(0px)' } : { opacity: 0, y: 0, filter: 'blur(10px)' }} // Control visibility and blur based on start
       transition={{ duration: 0.5, delay: delay }} // Duration of animation and delay before execution
       style={{ position: 'relative' }} // Ensure positioning is relative
     >
