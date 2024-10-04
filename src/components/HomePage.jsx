@@ -257,8 +257,9 @@ const HomePage = () => {
           />
         </AnimateSign>
         <AnimateSign start={startFallAnimation} delay={6.5}>
-        <div className="absolute z-50 text-2xl text-red-700" style={{left: '30px', top: '10px', width: '300px', overflowWrap: 'break-word'}}>
+        <div className="absolute z-50 text-2xl text-red-700 text-left" style={{right: '70px', top: '10px', width: '300px', overflowWrap: 'break-word'}}>
           {/*DialogueVariable Determined By Options -> Typed and have welcome default*/}
+          llollollollollollollollollollollollollollollollollollollollollollollollo
         </div>
         </AnimateSign>
       </div>
