@@ -41,7 +41,7 @@ const dialogues = {
   ],
 };
 
-const HomePage = () => {
+const Home = () => {
   const [startAnimation, setStartAnimation] = useState(false); // trigger for starting sign appear
   const [startFallAnimation, setFallAnimation] = useState(false); // set fall animation
   const [runawayEnabled, setRunawayEnabled] = useState(true); // toggle for enabling or disabling text running away
@@ -49,6 +49,7 @@ const HomePage = () => {
   const [hoverTriggered, setHoverTriggered] = useState(false); // if hover has been triggered initially
   const [currentDialogue, setCurrentDialogue] = useState(''); // for typed element
   const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0); // to traverse dialogues in order
+  
   // log init states
   const [headerPosition, setHeaderPosition] = useState({ x: 0, y: 0 });
   const [explorePosition, setExplorePosition] = useState({ x: 0, y: 0 });
@@ -135,7 +136,7 @@ const HomePage = () => {
       setStartAnimation(false); // Hide the sign after some time
     });
     
-    // final big shake
+    // final big shake on impact
     delay(3900).then(() => {
       bigShake();
     });
@@ -146,15 +147,15 @@ const HomePage = () => {
   useEffect(() => {
     if (startFallAnimation) {
       const timer = setTimeout(() => {
-        setCurrentDialogue("Welcome to Freaky Foo... oh its you again...");
-      }, 7500);
+        setCurrentDialogue("Welcome to Freaky Foods... Oh its you again...");
+      }, 6100);
 
-      return () => clearTimeout(timer); // Cleanup timer on unmount or state change
+      return () => clearTimeout(timer); // Cleanup 
     }
   }, [startFallAnimation]);
 
+  // Use Effect to Detect and Reinitialize Typed.js whenever currentDialogue changes
   useEffect(() => {
-    // Initialize Typed.js when currentDialogue changes
     if (currentDialogue) {
       const options = {
         strings: [currentDialogue],
@@ -170,6 +171,7 @@ const HomePage = () => {
     }
   }, [currentDialogue]);
 
+  // Method to handle and update current dialogue option in typed.js element
   const handleListItemClick = (item) => {
     const dialoguesForItem = dialogues[item];
     
@@ -207,6 +209,8 @@ const HomePage = () => {
       }
     }, shakeInterval);
   };
+
+  // Anime Animation For Big Stomp on Impact
   const bigShake = () => {
     const shakeInterval = 150; // Interval for shaking
     const shakeDuration = 300; // Total duration for shake
@@ -330,7 +334,7 @@ const HomePage = () => {
         </AnimateFall>
       </div>
 
-      {/* Text Box */}
+      {/* Text Box Picture */}
       <div className='flex absolute -rotate-12' style={{ right: '350px', bottom: '210px'}}>
         <AnimateSign start={startFallAnimation} delay={5}>
         <img
@@ -339,8 +343,10 @@ const HomePage = () => {
           className='z-40'
           />
         </AnimateSign>
-        <AnimateSign start={startFallAnimation} delay={6.5}>
-        <div className="absolute z-50 text-3xl text-red-500 text-left typed-element" style={{right: '60px', top: '5px', width: '300px', overflowWrap: 'break-word', transform: 'rotate(-2deg)', lineHeight: '1.0'}}>
+        
+        {/* Text For Text Box */}
+        <AnimateSign start={startFallAnimation} delay={5.8}> 
+        <div className="absolute z-50 text-3xl text-red-500 text-left typed-element" style={{right: '60px', top: '8px', width: '300px', overflowWrap: 'break-word', transform: 'rotate(-2deg)', lineHeight: '1.0'}}>
           {/* Typed Element Types Here */}
         </div>
         </AnimateSign>
@@ -349,4 +355,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;
