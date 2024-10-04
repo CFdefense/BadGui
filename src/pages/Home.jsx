@@ -12,17 +12,15 @@ import HideSign from '../animations/HideSign';
 const dialogues = {
   Explore: [
     "How about you explore a diet?",
-    "Have you tried 75 hard?",
-    "If you keep clicking I might let you through",
+    "Have you heard about 75 hard?",
     "Do you seriously want to eat out again?",
     "Are you expecting? Congratulations",
   ],
   Restaurants: [
     "You realize takeout isnt a food group, right? Just checking.",
     "Oh look, another impulse order... Your self control must be on vacation.",
-    "Sure, lets get you that overpriced food. Gotta love wasting money!",
+    "Sure, lets get you that overpriced food. Gotta love wasting money",
     "Why cook when you can pay someone else to give you indigestion?",
-    "Try Doordash"
   ],
   About: [
     "Nosy Bitch",
@@ -36,8 +34,7 @@ const dialogues = {
     "Were selling all your information for profit",
     "Is that a profile or a cry for help?",
     "Your profile could use some serious work. Good luck with that.",
-    "Make sure to update your BMI while youre at it...",
-    "Damn youre... very unique"
+    "Make sure to update your BMI while youre at it..."
   ],
 };
 
