@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import anime from 'animejs/lib/anime.es.js';
 import Typed from 'typed.js';
 import sign from '/sign.png';
@@ -15,12 +16,14 @@ const dialogues = {
     "Have you heard about 75 hard?",
     "Do you seriously want to eat out again?",
     "Are you expecting? Congratulations",
+    "Explore away tubby"
   ],
   Restaurants: [
     "You realize takeout isnt a food group, right? Just checking.",
     "Oh look, another impulse order... Your self control must be on vacation.",
     "Sure, lets get you that overpriced food. Gotta love wasting money",
     "Why cook when you can pay someone else to give you indigestion?",
+    "Let me know if you find anything good"
   ],
   About: [
     "Nosy Bitch",
@@ -47,6 +50,12 @@ const Home = () => {
   const [currentDialogue, setCurrentDialogue] = useState(''); // for typed element
   const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0); // to traverse dialogues in order
   
+  // Individual navigation states for each list item
+  const [canNavigateExplore, setCanNavigateExplore] = useState(false);
+  const [canNavigateRestaurants, setCanNavigateRestaurants] = useState(false);
+  const [canNavigateAbout, setCanNavigateAbout] = useState(false);
+  const [canNavigateProfile, setCanNavigateProfile] = useState(false);
+
   // log init states
   const [headerPosition, setHeaderPosition] = useState({ x: 0, y: 0 });
   const [explorePosition, setExplorePosition] = useState({ x: 0, y: 0 });
@@ -179,6 +188,40 @@ const Home = () => {
       // Reset the index if we reach the end
       setCurrentDialogueIndex(0);
       setCurrentDialogue(dialoguesForItem[0]);
+      
+       // Set the corresponding navigation state when exhausted dialogue
+       switch (item) {
+        case 'Explore':
+          setCanNavigateExplore(true);
+          break;
+        case 'Restaurants':
+          setCanNavigateRestaurants(true);
+          break;
+        case 'About':
+          setCanNavigateAbout(true);
+          break;
+        case 'Profile':
+          setCanNavigateProfile(true);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
+  // Render link if exhausted dialogue
+  const renderLink = (item) => {
+    switch (item) {
+      case 'Explore':
+        return canNavigateExplore ? <Link to="/explore">Explore</Link> : "Explore";
+      case 'Restaurants':
+        return canNavigateRestaurants ? <Link to="/restaurants">Restaurants</Link> : "Restaurants";
+      case 'About':
+        return canNavigateAbout ? <Link to="/about">About</Link> : "About";
+      case 'Profile':
+        return canNavigateProfile ? <Link to="/profile">Profile</Link> : "Profile";
+      default:
+        return null;
     }
   };
 
@@ -263,7 +306,7 @@ const Home = () => {
             transition: 'transform 0.2s ease-in-out',
           }}
         >
-          Explore
+          {renderLink('Explore')}
         </li>
         <li
           onClick={() => handleListItemClick('Restaurants')}
@@ -273,7 +316,7 @@ const Home = () => {
             transition: 'transform 0.2s ease-in-out',
           }}
         >
-          Restaurants
+          {renderLink('Restaurants')}
         </li>
         <li
           onClick={() => handleListItemClick('About')}
@@ -283,7 +326,7 @@ const Home = () => {
             transition: 'transform 0.2s ease-in-out',
           }}
         >
-          About
+          {renderLink('About')}
         </li>
         <li
           onClick={() => handleListItemClick('Profile')}
@@ -293,7 +336,7 @@ const Home = () => {
             transition: 'transform 0.2s ease-in-out',
           }}
         >
-          Profile
+          {renderLink('Profile')}
         </li>
       </ul>
       
@@ -342,7 +385,7 @@ const Home = () => {
         </AnimateSign>
         
         {/* Text For Text Box */}
-        <AnimateSign start={startFallAnimation} delay={5.8}> 
+        <AnimateSign start={startFallAnimation} delay={5.6}> 
         <div className="absolute z-50 text-3xl text-red-500 text-left typed-element" style={{right: '60px', top: '8px', width: '300px', overflowWrap: 'break-word', transform: 'rotate(-2deg)', lineHeight: '1.0'}}>
           {/* Typed Element Types Here */}
         </div>
