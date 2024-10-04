@@ -19,7 +19,7 @@ const dialogues = {
   ],
   Restaurants: [
     "You realize takeout isnt a food group, right? Just checking.",
-    "Oh look, another impulse order... Your self-control must be on vacation.",
+    "Oh look, another impulse order... Your self control must be on vacation.",
     "Sure, lets get you that overpriced food. Gotta love wasting money!",
     "Why cook when you can pay someone else to give you indigestion?",
     "Try Doordash"
@@ -148,7 +148,7 @@ const Home = () => {
     if (startFallAnimation) {
       const timer = setTimeout(() => {
         setCurrentDialogue("Welcome to Freaky Foods... Oh its you again...");
-      }, 6100);
+      }, 5900);
 
       return () => clearTimeout(timer); // Cleanup 
     }
