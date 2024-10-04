@@ -149,6 +149,8 @@ const HomePage = () => {
           ],
           translateY: [
             { value: -100, duration: 200, easing: 'easeInOutQuad' }, // Upward movement
+            { value: 0, duration: 200, easing: 'easeOutBounce' }, // Bounce back to original position
+            { value: -50, duration: 200, easing: 'easeInOutQuad' }, // Upward movement
             { value: 0, duration: 200, easing: 'easeOutBounce' } // Bounce back to original position
           ],
           easing: 'easeInOutQuad',
