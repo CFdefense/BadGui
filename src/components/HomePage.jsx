@@ -248,7 +248,7 @@ const HomePage = () => {
       </div>
 
       {/* Text Box */}
-      <div className='flex absolute -rotate-12' style={{ right: '320px', bottom: '150px'}}>
+      <div className='flex absolute -rotate-12' style={{ right: '350px', bottom: '190px'}}>
         <AnimateSign start={startFallAnimation} delay={5}>
         <img
           src={speak}
