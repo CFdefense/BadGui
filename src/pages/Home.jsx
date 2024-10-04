@@ -48,7 +48,12 @@ const Home = () => {
   const [animationTriggered, setAnimationTriggered] = useState(false); // if we have triggered animation
   const [hoverTriggered, setHoverTriggered] = useState(false); // if hover has been triggered initially
   const [currentDialogue, setCurrentDialogue] = useState(''); // for typed element
-  const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0); // to traverse dialogues in order
+  
+  // Separate dialogue indexes
+  const [currentDialogueIndexExplore, setCurrentDialogueIndexExplore] = useState(0);
+  const [currentDialogueIndexRestaurants, setCurrentDialogueIndexRestaurants] = useState(0);
+  const [currentDialogueIndexAbout, setCurrentDialogueIndexAbout] = useState(0);
+  const [currentDialogueIndexProfile, setCurrentDialogueIndexProfile] = useState(0);
   
   // Individual navigation states for each list item
   const [canNavigateExplore, setCanNavigateExplore] = useState(false);
@@ -179,35 +184,59 @@ const Home = () => {
 
   // Method to handle and update current dialogue option in typed.js element
   const handleListItemClick = (item) => {
+    let currentIndex;
     const dialoguesForItem = dialogues[item];
-    
-    if (currentDialogueIndex < dialoguesForItem.length) {
-      setCurrentDialogue(dialoguesForItem[currentDialogueIndex]);
-      setCurrentDialogueIndex(currentDialogueIndex + 1);
-    } else {
-      // Reset the index if we reach the end
-      setCurrentDialogueIndex(0);
-      setCurrentDialogue(dialoguesForItem[0]);
-      
-       // Set the corresponding navigation state when exhausted dialogue
-       switch (item) {
-        case 'Explore':
+
+    switch (item) {
+      case 'Explore':
+        currentIndex = currentDialogueIndexExplore;
+        if (currentIndex < dialoguesForItem.length) {
+          setCurrentDialogue(dialoguesForItem[currentIndex]);
+          setCurrentDialogueIndexExplore(currentIndex + 1);
+        } else {
+          setCurrentDialogueIndexExplore(0);
+          setCurrentDialogue(dialoguesForItem[0]);
           setCanNavigateExplore(true);
-          break;
-        case 'Restaurants':
+        }
+        break;
+      case 'Restaurants':
+        currentIndex = currentDialogueIndexRestaurants;
+        if (currentIndex < dialoguesForItem.length) {
+          setCurrentDialogue(dialoguesForItem[currentIndex]);
+          setCurrentDialogueIndexRestaurants(currentIndex + 1);
+        } else {
+          setCurrentDialogueIndexRestaurants(0);
+          setCurrentDialogue(dialoguesForItem[0]);
           setCanNavigateRestaurants(true);
-          break;
-        case 'About':
+        }
+        break;
+      case 'About':
+        currentIndex = currentDialogueIndexAbout;
+        if (currentIndex < dialoguesForItem.length) {
+          setCurrentDialogue(dialoguesForItem[currentIndex]);
+          setCurrentDialogueIndexAbout(currentIndex + 1);
+        } else {
+          setCurrentDialogueIndexAbout(0);
+          setCurrentDialogue(dialoguesForItem[0]);
           setCanNavigateAbout(true);
-          break;
-        case 'Profile':
+        }
+        break;
+      case 'Profile':
+        currentIndex = currentDialogueIndexProfile;
+        if (currentIndex < dialoguesForItem.length) {
+          setCurrentDialogue(dialoguesForItem[currentIndex]);
+          setCurrentDialogueIndexProfile(currentIndex + 1);
+        } else {
+          setCurrentDialogueIndexProfile(0);
+          setCurrentDialogue(dialoguesForItem[0]);
           setCanNavigateProfile(true);
-          break;
-        default:
-          break;
-      }
+        }
+        break;
+      default:
+        break;
     }
   };
+
 
   // Render link if exhausted dialogue
   const renderLink = (item) => {
