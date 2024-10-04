@@ -109,7 +109,7 @@ const HomePage = () => {
   // anime effect to shake the screen before logo appears
   const shakeScreen = () => {
     const shakeInterval = 100; // Interval for shaking
-    const shakeDuration = 3000; // Total duration for shake
+    const shakeDuration = 2800; // Total duration for shake
     const startTime = Date.now();
 
     const interval = setInterval(() => {
