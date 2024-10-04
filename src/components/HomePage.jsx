@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import anime from 'animejs/lib/anime.es.js';
+import Typed from 'typed.js';
 import sign from '/sign.png';
 import logo from '/logo.png';
 import speak from '/speak.png';
@@ -7,17 +8,51 @@ import AnimateSign from '../animations/AnimateSign';
 import AnimateFall from '../animations/AnimateFall';
 import HideSign from '../animations/HideSign';
 
+// NavBar Dialogues
+const dialogues = {
+  Explore: [
+    "How about you explore a diet?",
+    "Have you tried 75 hard?",
+    "If you keep clicking I might let you through",
+    "Do you seriously want to eat out again?",
+    "Are you expecting? Congratulations",
+  ],
+  Restaurants: [
+    "You realize takeout isnt a food group, right? Just checking.",
+    "Oh look, another impulse order... Your self-control must be on vacation.",
+    "Sure, lets get you that overpriced food. Gotta love wasting money!",
+    "Why cook when you can pay someone else to give you indigestion?",
+    "Try Doordash"
+  ],
+  About: [
+    "Nosy Bitch",
+    "Looking for inspiration? Maybe try looking in the mirror.",
+    "Curious? I hope youre ready for a reality check.",
+    "About us? Just remember, were not here to save you from yourself.",
+    "Its about time you tried a different button",
+  ],
+  Profile: [
+    "Please dont tell us anymore about yourself",
+    "Were selling all your information for profit",
+    "Is that a profile or a cry for help?",
+    "Your profile could use some serious work. Good luck with that.",
+    "Make sure to update your BMI while youre at it...",
+    "Damn youre... very unique"
+  ],
+};
+
 const HomePage = () => {
   const [startAnimation, setStartAnimation] = useState(false); // trigger for starting sign appear
   const [startFallAnimation, setFallAnimation] = useState(false); // set fall animation
   const [runawayEnabled, setRunawayEnabled] = useState(true); // toggle for enabling or disabling text running away
   const [animationTriggered, setAnimationTriggered] = useState(false); // if we have triggered animation
   const [hoverTriggered, setHoverTriggered] = useState(false); // if hover has been triggered initially
-
+  const [currentDialogue, setCurrentDialogue] = useState(''); // for typed element
+  const [currentDialogueIndex, setCurrentDialogueIndex] = useState(0); // to traverse dialogues in order
   // log init states
   const [headerPosition, setHeaderPosition] = useState({ x: 0, y: 0 });
   const [explorePosition, setExplorePosition] = useState({ x: 0, y: 0 });
-  const [topPicksPosition, setTopPicksPosition] = useState({ x: 0, y: 0 });
+  const [RestaurantsPosition, setRestaurantsPosition] = useState({ x: 0, y: 0 });
   const [aboutPosition, setAboutPosition] = useState({ x: 0, y: 0 });
   const [profilePosition, setProfilePosition] = useState({ x: 0, y: 0 });
 
@@ -54,10 +89,10 @@ const HomePage = () => {
     }
   };
 
-  const handleTopPicksHover = (e) => {
+  const handleRestaurantsHover = (e) => {
     if (runawayEnabled) {
       const { width, height } = e.target.getBoundingClientRect();
-      setTopPicksPosition(getRandomPosition(width, height));
+      setRestaurantsPosition(getRandomPosition(width, height));
     }
   };
 
@@ -80,7 +115,7 @@ const HomePage = () => {
     setRunawayEnabled(false);
     setHeaderPosition({ x: 0, y: 0 });
     setExplorePosition({ x: 0, y: 0 });
-    setTopPicksPosition({ x: 0, y: 0 });
+    setRestaurantsPosition({ x: 0, y: 0 });
     setAboutPosition({ x: 0, y: 0 });
     setProfilePosition({ x: 0, y: 0 });
 
@@ -104,6 +139,48 @@ const HomePage = () => {
     delay(3900).then(() => {
       bigShake();
     });
+  };
+
+
+  // Effect to update currentDialogue with welcome message after sign animation
+  useEffect(() => {
+    if (startFallAnimation) {
+      const timer = setTimeout(() => {
+        setCurrentDialogue("Welcome to Freaky Foo... oh its you again...");
+      }, 7500);
+
+      return () => clearTimeout(timer); // Cleanup timer on unmount or state change
+    }
+  }, [startFallAnimation]);
+
+  useEffect(() => {
+    // Initialize Typed.js when currentDialogue changes
+    if (currentDialogue) {
+      const options = {
+        strings: [currentDialogue],
+        typeSpeed: 35,
+        backSpeed: 50,
+        loop: false,
+        showCursor: false,
+      };
+      const typed = new Typed('.typed-element', options);
+      return () => {
+        typed.destroy(); // Cleanup on unmount
+      };
+    }
+  }, [currentDialogue]);
+
+  const handleListItemClick = (item) => {
+    const dialoguesForItem = dialogues[item];
+    
+    if (currentDialogueIndex < dialoguesForItem.length) {
+      setCurrentDialogue(dialoguesForItem[currentDialogueIndex]);
+      setCurrentDialogueIndex(currentDialogueIndex + 1);
+    } else {
+      // Reset the index if we reach the end
+      setCurrentDialogueIndex(0);
+      setCurrentDialogue(dialoguesForItem[0]);
+    }
   };
 
   // anime effect to shake the screen before logo appears
@@ -178,6 +255,7 @@ const HomePage = () => {
       {/* Navbar Elements */}
       <ul className="flex justify-center mt-6 space-x-10 text-4xl cursor-pointer">
         <li
+          onClick={() => handleListItemClick('Explore')}
           onMouseEnter={handleHover(handleExploreHover)}
           style={{
             transform: `translate(${explorePosition.x}px, ${explorePosition.y}px)`,
@@ -187,15 +265,17 @@ const HomePage = () => {
           Explore
         </li>
         <li
-          onMouseEnter={handleHover(handleTopPicksHover)}
+          onClick={() => handleListItemClick('Restaurants')}
+          onMouseEnter={handleHover(handleRestaurantsHover)}
           style={{
-            transform: `translate(${topPicksPosition.x}px, ${topPicksPosition.y}px)`,
+            transform: `translate(${RestaurantsPosition.x}px, ${RestaurantsPosition.y}px)`,
             transition: 'transform 0.2s ease-in-out',
           }}
         >
-          Top Picks
+          Restaurants
         </li>
         <li
+          onClick={() => handleListItemClick('About')}
           onMouseEnter={handleHover(handleAboutHover)}
           style={{
             transform: `translate(${aboutPosition.x}px, ${aboutPosition.y}px)`,
@@ -205,6 +285,7 @@ const HomePage = () => {
           About
         </li>
         <li
+          onClick={() => handleListItemClick('Profile')}
           onMouseEnter={handleHover(handleProfileHover)}
           style={{
             transform: `translate(${profilePosition.x}px, ${profilePosition.y}px)`,
@@ -259,9 +340,8 @@ const HomePage = () => {
           />
         </AnimateSign>
         <AnimateSign start={startFallAnimation} delay={6.5}>
-        <div className="absolute z-50 text-2xl text-red-700 text-left" style={{right: '70px', top: '10px', width: '300px', overflowWrap: 'break-word'}}>
-          {/*DialogueVariable Determined By Options -> Typed and have welcome default*/}
-          llollollollollollollollollollollollollollollollollollollollollollollollo
+        <div className="absolute z-50 text-3xl text-red-500 text-left typed-element" style={{right: '60px', top: '5px', width: '300px', overflowWrap: 'break-word', transform: 'rotate(-2deg)', lineHeight: '1.0'}}>
+          {/* Typed Element Types Here */}
         </div>
         </AnimateSign>
       </div>

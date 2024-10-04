@@ -1,4 +1,2 @@
--- TODO --
-1. Implement Dialogue and typing animation based on (2)
-2. Dialogue Pool, Maybe Array so we can order it
-3. need tenerary on list elements so dialogue only rendered after logo falls
+--TODO--
+Push and Test
