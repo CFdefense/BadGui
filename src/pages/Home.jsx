@@ -12,21 +12,20 @@ import HideSign from '../animations/HideSign';
 // NavBar Dialogues
 const dialogues = {
   Explore: [
-    "How about you explore a diet?",
+    "How about we explore a different diet?",
     "Have you heard about 75 hard?",
-    "Do you seriously want to eat out again?",
-    "Are you expecting? Congratulations",
-    "Explore away tubby"
+    "Here we go again...",
+    "Cant say I didnt try...",
   ],
   Restaurants: [
     "You realize takeout isnt a food group, right? Just checking.",
     "Oh look, another impulse order... Your self control must be on vacation.",
     "Sure, lets get you that overpriced food. Gotta love wasting money",
     "Why cook when you can pay someone else to give you indigestion?",
-    "Let me know if you find anything good"
+    "Let me know if you find anything good, im getting hungry"
   ],
   About: [
-    "Nosy Bitch",
+    "Someones nosy",
     "Looking for inspiration? Maybe try looking in the mirror.",
     "Curious? I hope youre ready for a reality check.",
     "About us? Just remember, were not here to save you from yourself.",
@@ -36,8 +35,7 @@ const dialogues = {
     "Please dont tell us anymore about yourself",
     "Were selling all your information for profit",
     "Is that a profile or a cry for help?",
-    "Your profile could use some serious work. Good luck with that.",
-    "Make sure to update your BMI while youre at it..."
+    "Your profile could use some serious work. Good luck with that."
   ],
 };
 
